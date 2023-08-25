@@ -1,0 +1,16 @@
+node_modules/
+
+dist/
+
+.env
+
+.vscode/
+.idea/
+*.swp
+*.suo
+*.user
+*.userprefs
+*.sln.docstates
+
+.DS_Store
+Thumbs.db
