@@ -1,6 +1,7 @@
 export type ContentEncoding = 'binary' | 'base64' | 'quoted-printable';
+import { SchemaType } from "./schema";
 
-export type StringTypeOptions = {
+export interface StringTypeOptions extends SchemaType {
   pattern?: string;
   minLength?: number;
   maxLength?: number;

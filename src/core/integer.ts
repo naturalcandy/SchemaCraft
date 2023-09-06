@@ -20,3 +20,4 @@ export const integerType: IntegerTypeFunction = (options: IntegerTypeOptions = {
     };
 };
 
+

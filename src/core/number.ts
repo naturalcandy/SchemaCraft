@@ -1,11 +1,13 @@
 import { StrictlyPositiveNumberError } from './errors';
+import { SchemaType } from "./schema";
 
-export type NumberTypeOptions = {
+
+export interface NumberTypeOptions extends SchemaType  {
     minimum?: number;
     exclusiveMinimum?: number | boolean;
     maximum?: number;
     exclusiveMaximum?: number | boolean;
-    multipleOf?: StrictlyPositiveNumber;
+    multipleOf?: number;
 };
 
 export type StrictlyPositiveNumber = number;
@@ -16,22 +18,15 @@ export type NumberTypeFunction = (options?: NumberTypeOptions) => {
     exclusiveMinimum?: number | boolean;
     maximum?: number;
     exclusiveMaximum?: number | boolean;
-    multipleOf?: StrictlyPositiveNumber;
+    multipleOf?: number;
 };
   
 export const numberType: NumberTypeFunction = (options: NumberTypeOptions = {}) => {
-    if (options.multipleOf !== undefined && options.multipleOf <= 0) {
-        console.error('Error: multipleOf must be a strictly positive number.');
-        throw new StrictlyPositiveNumberError("'multipleOf' must be a strictly positive number."); 
-    }
+
     return {
         type: 'number',
         ...options
     };
 };
   
-const correct = numberType()
-const incorrect = numberType({ minimum: 0, multipleOf: -2})
 
-console.log(correct)
-console.log(incorrect)
