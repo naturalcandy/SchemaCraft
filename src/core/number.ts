@@ -28,5 +28,3 @@ export const numberType: NumberTypeFunction = (options: NumberTypeOptions = {}) 
         ...options
     };
 };
-  
-
