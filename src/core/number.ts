@@ -2,13 +2,13 @@ import { StrictlyPositiveNumberError } from './errors';
 import { SchemaType } from "./schema";
 
 
-export interface NumberTypeOptions extends SchemaType  {
+export interface NumberTypeOptions extends SchemaType<'number'> {
     minimum?: number;
     exclusiveMinimum?: number | boolean;
     maximum?: number;
     exclusiveMaximum?: number | boolean;
     multipleOf?: number;
-};
+  }
 
 export type StrictlyPositiveNumber = number;
 

@@ -3,7 +3,7 @@ import { StrictlyPositiveNumberError, PositiveIntegerError } from "./errors";
 
 type integer = number;
 
-export interface ObjectTypeOptions extends SchemaType {
+export interface ObjectTypeOptions extends SchemaType<'object'> {
     properties? : object;
     required? : string[];
     dependentSchemas?: object; // property values can be objects representing valid json schemas,

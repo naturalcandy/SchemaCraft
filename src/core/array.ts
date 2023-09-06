@@ -5,16 +5,15 @@ import { stringType } from "./string";
 
 // prefixItems was a newly added field present in Draft 2020-12 onward. 
 
-type integer = number;
-type PositiveInteger = number;
 
-export interface ArrayTypeOptions extends SchemaType {
-    minItems?: integer;
-    maxItems?: integer;
+
+export interface ArrayTypeOptions extends SchemaType<'array'> {
+    minItems?: number;
+    maxItems?: number;
     uniqueItems?: boolean;
     contains?: SchemaType;
-    minContains?: PositiveInteger;
-    maxContains?: PositiveInteger;
+    minContains?: number;
+    maxContains?: number;
     items?: SchemaType | SchemaType[];
     additionalItems?: SchemaType;
     prefixItems?: SchemaType[];
@@ -53,3 +52,4 @@ export const arrayType: ArrayTypeFunction = (items, options = {}) => {
     };
 
 }
+
