@@ -1,9 +1,30 @@
 import { NumberTypeOptions } from "./number";
+import { SchemaType } from "./schema";
 
-export type IntegerTypeOptions = Omit<NumberTypeOptions, 'multipleOf'>;
 
-/*Captures internal type of 'multipleOf' while omitting it from the returned result.
-  Integer is just a number type with multipleOf set to the explicit type of 1*/
+/**
+ * @module IntegerType
+ * This module provides the foundational type and functions for creating integer-based JSON schemas.
+ */
+
+
+/**
+ * Represents the options for an integer-based JSON schema.
+ * 
+ * @property minimum - Specifies the minimum value for the integer.
+ * @property exclusiveMinimum - Specifies an exclusive minimum value for the integer.
+ * @property maximum - Specifies the maximum value for the integer.
+ * @property exclusiveMaximum - Specifies an exclusive maximum value for the integer.
+ */
+export interface IntegerTypeOptions extends Omit<NumberTypeOptions, 'type' | 'multipleOf'>, SchemaType<'integer'> {}
+
+
+/**
+ * Function type for generating integer-based JSON schemas.
+ * 
+ * @param options - Configuration options for the integer schema.
+ * @returns A JSON schema object tailored for integers.
+ */
 export type IntegerTypeFunction = (options?: IntegerTypeOptions) => {
     type: 'integer';
     multipleOf?: 1;
@@ -13,6 +34,14 @@ export type IntegerTypeFunction = (options?: IntegerTypeOptions) => {
     exclusiveMaximum?: number | boolean;
 };
 
+
+/**
+ * Generates an integer-based JSON schema based on provided options.
+ * 
+ * @param options - Configuration options for the integer schema.
+ * 
+ * @returns A JSON schema object tailored for integers.
+ */
 export const integerType: IntegerTypeFunction = (options: IntegerTypeOptions = {}) => {
     return {
         type: 'integer',
