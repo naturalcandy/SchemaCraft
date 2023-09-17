@@ -33,6 +33,8 @@ export interface StringTypeOptions extends SchemaType<'string'> {
   minLength?: number;
   maxLength?: number;
   contentEncoding?: ContentEncoding;
+  contentMediaType?: string;
+  contentSchema?: SchemaType;
 };
 
 /**
@@ -48,6 +50,8 @@ export type StringTypeFunction = (options?: StringTypeOptions) => {
   minLength?: number;
   maxLength?: number;
   contentEncoding?: ContentEncoding;
+  contentMediaType?: string;
+  contentSchema?: SchemaType;
 };
 
 

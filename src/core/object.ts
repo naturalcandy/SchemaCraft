@@ -24,14 +24,14 @@ type integer = number;
  * @property unevaluatedProperties - Boolean indicating if properties not covered by `properties` or `patternProperties` should be allowed.
  */
 export interface ObjectTypeOptions extends SchemaType<'object'> {
-    properties? : Record<string, SchemaType>;
+    properties? : SchemaType | Record<string, SchemaType>;
     required? : string[];
-    dependentSchemas?: Record<string, SchemaType>; // property values can be objects representing valid json schemas,
+    dependentSchemas?: SchemaType | Record<string, SchemaType>; // property values can be objects representing valid json schemas,
     dependentRequired?: Record<string, string[]>; //value of this keyword must be an object, property values are arrays of strings representing property names,
     minProperties? : integer;
     maxProperties? : integer;
     propertyNames? : SchemaType; 
-    patternProperties? : Record<string, SchemaType>;
+    patternProperties? : Record<string, SchemaType>; //string must be a valid regex.
     additionalProperties? : boolean | SchemaType;
     unevaluatedProperties? : boolean;
 
@@ -46,13 +46,13 @@ export interface ObjectTypeOptions extends SchemaType<'object'> {
  * @returns A JSON schema for an object.
  */
 export type ObjectTypeFunction = (
-    properties?: Record<string, SchemaType>,
+    properties?: SchemaType | Record<string, SchemaType>,
     options?: Omit<ObjectTypeOptions, 'properties'>,
 ) => {
     type: 'object';
-    properties? : Record<string, SchemaType>;
+    properties? : SchemaType | Record<string, SchemaType>;
     required? : string[];
-    dependentSchemas?: Record<string, SchemaType>; 
+    dependentSchemas?: SchemaType | Record<string, SchemaType>;
     dependentRequired?: Record<string, string[]>;
     minProperties? : integer;
     maxProperties? : integer;

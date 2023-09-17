@@ -9,7 +9,6 @@ import { objectType } from "./object";
  */
 
 
-
 /**
  * Represents the core structure of a JSON schema.
  * 
@@ -30,8 +29,8 @@ export interface SchemaType<T = 'array' | 'number' | 'object' | 'string' | 'inte
     if?: SchemaType;
     then?: SchemaType;
     else?: SchemaType;
-    anyOf?: SchemaType[];
-    oneOf?: SchemaType[];
-    allOf?: SchemaType[];
+    anyOf?: SchemaType[] | object;
+    oneOf?: SchemaType[] | object;
+    allOf?: SchemaType[] | object;
 }
 

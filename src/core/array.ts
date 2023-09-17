@@ -32,7 +32,7 @@ export interface ArrayTypeOptions extends SchemaType<'array'> {
     minContains?: number;
     maxContains?: number;
     items?: SchemaType | SchemaType[];
-    additionalItems?: SchemaType;
+    additionalItems?: boolean | SchemaType;
     prefixItems?: SchemaType[];
     unevaluatedItems?: boolean;
 };
@@ -51,7 +51,7 @@ export type ArrayTypeFunction = (
   ) => {
     type: 'array';
     items?: SchemaType | SchemaType[];
-    additionalItems?: SchemaType;
+    additionalItems?: boolean | SchemaType;
     prefixItems?: SchemaType[];   // Draft 2020-12
     minItems?: number;
     maxItems?: number;

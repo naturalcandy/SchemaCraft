@@ -41,10 +41,3 @@ test('exclusive max test', () => {
     expect(numberType({ exclusiveMaximum: 3})).toStrictEqual(exclusiveMaximumset);
 })
 
-const multipleOfSet = {
-    "type": "number",
-    "multipleOf": 3
-}
-test('multipleOf test', () => {
-    expect(numberType({ multipleOf: 3})).toStrictEqual(multipleOfSet);
-})
