@@ -2,18 +2,72 @@
 
 SchemaCraft is a light-weight TypeScript library for simplifying the creation and management of JSON schemas. It's designed with large and nested schemas in mind, offering a programmatic approach for defining complex, dynamic, and highly reusable schemas all the while being very intuitive to read and understand at a glance.
 
+
+## Installation Guide
+
+Install SchemaCraft with the following command:
+```
+npm i schema-craft
+```
+
+## How To Use
+
+SchemaCraft provides functions for easily creating JSON Schemas. It's core revolves around the "core validation types" defined in the JSON Schema documentation: `integer`, `number`, `string`, `array`, `object`, `boolean`, and `null`. It also supports the creation of Schemas with validation keywords as defined in the JSON Schema specification. 
+
+Here's an example:
+
+```typescript
+import { stringType, objectType, integerType, arrayType } from 'schema-craft';
+
+
+const userSchema = objectType(
+  {
+    name: stringType({ minLength: 1 }),
+    age: integerType({ minimum: 0 }),
+    email: stringType({ format: email })
+  },{ required: ['name', 'email'] }
+);
+
+const userListSchema = arrayType(userSchema, {maxContains: 10})
+```
+Then at runtime userList is evaluated to: 
+```typescript
+{
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "minLength": 1
+      },
+      "age": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "email": {
+        "type": "string",
+        "format": "email"
+      }
+    },
+    "required": ["name", "email"]
+  },
+  "maxContains": 10
+}
+```
+The more complex your JSON Schema is, the more benefits you gain from SchemaCraft.
+
 ## Core Ideas
 
-Schema-Craft focuses on a couple of core ideas to ensure that the development of JSON Schema's are simple and easy to understand, reagrdless of one's programming experience. Here are a couple of its core ideas:
+Schema-Craft focuses on a couple of core ideas to ensure that the development of JSON Schemas are simple and easy to understand, reagrdless of one's programming experience. Here are a couple of its core ideas:
 
-* **Mirrored Syntax**: Schema-Craft's design closely follows the standard JSON schema structure, ensuring familiarity and ease of adoption.
+* **Mirrored Syntax**: Schema-Craft's design closely follows the standard JSON structure, ensuring familiarity and ease of adoption.
 * **Enhanced Readability**: By encapsulating metadata and reducing verbosity, Schema-Craft makes complex schemas more readable and maintainable.
 * **Conditional Logic Integration**: Easily introduce dynamic constructs directly into your schema creation using built-in operations.
-* **TypeScript-Driven**: Benefit from TypeScript's strong type-checking to ensure robust and error-free schemas.
-* **Functional Approach Under the Hood**: Predictable behavior, easier debugging, and a clean, modular codebase.
+* **TypeScript-Driven**: Benefit from TypeScript's strong type-checking to ensure robust and error-free schemas. Additional code completion features for metadata. 
 * **Modularization and Templates**: Schema-Craft promotes a modular approach, allowing you to break down complex schemas into reusable components. This not only enhances maintainability but also provides a template-driven methodology, ensuring consistency across different parts of your application.
 
-## Example Basic Usage
+## Simplification of Complex Schemas
 
 Here's an example JSON Schema, `universitySchema`, that describes a university system:
 
@@ -112,18 +166,18 @@ Here's an example JSON Schema, `universitySchema`, that describes a university s
 }
 ```
 
-Now using `schema-craft`, we can define a programmatic way to write this Schema. During runtime our schema object `universitySchema` is evaluated to the actual JSON Schema we defined above.
+Now using `schema-craft`, we can adopt a programmatic way to define this Schema. During runtime our schema object `universitySchema` is evaluated to the actual JSON Schema we defined above.
 
 ```typescript
-const professorSchema = objectType({
-    professorName: stringType(),
-    tenured: booleanType()
-}, { required: ['professorName', 'tenured'] });
+const universitySchema = objectType({
+    universityName: stringType(),
+    departments: arrayType(departmentSchema)
+}, { required: ['universityName'] });
 
-const studentSchema = objectType({
-    studentName: stringType(),
-    year: numberType({ minimum: 1, maximum: 4 })
-}, { required: ['studentName', 'year'] });
+const departmentSchema = objectType({
+    departmentName: stringType(),
+    courses: arrayType(courseSchema)
+}, { required: ['departmentName'] });
 
 const courseSchema = objectType({
     courseName: stringType(),
@@ -132,15 +186,16 @@ const courseSchema = objectType({
     students: arrayType(studentSchema)
 }, { required: ['courseName', 'courseCode'] });
 
-const departmentSchema = objectType({
-    departmentName: stringType(),
-    courses: arrayType(courseSchema)
-}, { required: ['departmentName'] });
+const studentSchema = objectType({
+    studentName: stringType(),
+    year: numberType({ minimum: 1, maximum: 4 })
+}, { required: ['studentName', 'year'] });
 
-const universitySchema = objectType({
-    universityName: stringType(),
-    departments: arrayType(departmentSchema)
-}, { required: ['universityName'] });
+
+const professorSchema = objectType({
+    professorName: stringType(),
+    tenured: booleanType()
+}, { required: ['professorName', 'tenured'] });
 ```
 
 ## Example Dynamic Schema Generation
@@ -201,4 +256,7 @@ With Schema-Craft's dynamic schema generation, we achieve a balance between modu
 }
 ```
 
-Schema-Craft supports all conditional keyword properties inherent to JSON Schema. This additional capability just ensures that developers can articulate intricate logic to write generic Schemas without succumbing to excessive verbosity.
+Schema-Craft supports all conditional keyword properties inherent to JSON Schema. This additional capability just ensures that developers can articulate intricate logic to write generic Schemas without succumbing to excessive verbosity. Additionally developers will no longer have to keep and manage multiple versions of related schemas. 
+
+## Docs
+Coming soon.
